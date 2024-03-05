@@ -1,3 +1,8 @@
+#!/usr/bin/python3
+'''A module for working with Pascal's triangle.
+'''
+
+
 def pascal_triangle(n):
     triangle = [[1]]
     for i in range(1, n):
