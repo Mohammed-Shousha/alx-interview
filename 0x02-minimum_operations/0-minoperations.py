@@ -13,17 +13,21 @@ def minOperations(n):
     Returns:
         The minimum number of operations needed, or 0 if impossible.
     """
-    if n <= 0:
+    if not isinstance(n, int):
         return 0
-
-    min_operations = [0] * (n + 1)
-
-    for i in range(2, n + 1):
-        min_operations[i] = float('inf')
-
-        for j in range(1, i):
-            if i % j == 0:
-                min_operations[i] = min(
-                    min_operations[i], min_operations[j] + i // j)
-
-    return min_operations[n] if min_operations[n] != float('inf') else 0
+    ops_count = 0
+    clipboard = 0
+    done = 1
+    while done < n:
+        if clipboard == 0:
+            clipboard = done
+            done += clipboard
+            ops_count += 2
+        elif n - done > 0 and (n - done) % done == 0:
+            clipboard = done
+            done += clipboard
+            ops_count += 2
+        elif clipboard > 0:
+            done += clipboard
+            ops_count += 1
+    return ops_count
